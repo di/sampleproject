@@ -5,12 +5,23 @@ language: python
 
 matrix:
   include:
-    - python: 2.7
+    - stage: test
+      python: 2.7
       env: TOXENV=py27
     - python: 3.5
       env: TOXENV=py35
     - python: 3.6
       env: TOXENV=py36
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: pypi
+        on:
+          all_branches: true
+        edge:
+          branch: sf-twine-check
+        username: foo
+        password: bar
 
 install: pip install tox
 
